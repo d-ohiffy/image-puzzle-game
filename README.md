@@ -74,5 +74,7 @@ A significant technical challenge when working with the HTML5 Canvas and externa
 
 
 * **Move Counter & Timer:** * Adding a competitive layer by tracking the number of swaps and the total time taken to solve each level.
+
+<<Below feature has been added>>
 * **Mobile Touch Support:** * Implementing `touchstart`, `touchmove`, and `touchend` event listeners to ensure the canvas interaction works seamlessly on mobile and tablet devices.
 
