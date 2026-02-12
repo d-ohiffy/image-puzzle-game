@@ -488,6 +488,82 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
   });
+
+  // 1. Touch Start (Like Mousedown)
+  canvas.addEventListener(
+    "touchstart",
+    (e) => {
+      if (gameState !== "PLAYING") return;
+      e.preventDefault(); // Prevents scrolling while playing
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const mouseX = touch.clientX - rect.left;
+      const mouseY = touch.clientY - rect.top;
+
+      const tile = getTileAt(mouseX, mouseY);
+      if (tile) {
+        selectedTile = tile;
+        isDragging = true;
+        dragOffsetX = mouseX - tile.cx;
+        dragOffsetY = mouseY - tile.cy;
+        originalIndex = tile.currentIndex;
+      }
+    },
+    { passive: false },
+  );
+
+  // 2. Touch Move (Like Mousemove)
+  canvas.addEventListener(
+    "touchmove",
+    (e) => {
+      if (gameState !== "PLAYING" || !isDragging || !selectedTile) return;
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const mouseX = touch.clientX - rect.left;
+      const mouseY = touch.clientY - rect.top;
+
+      selectedTile.cx = mouseX - dragOffsetX;
+      selectedTile.cy = mouseY - dragOffsetY;
+      redrawCanvas(shuffled_tiles_array_res);
+    },
+    { passive: false },
+  );
+
+  // 3. Touch End (Like Mouseup)
+  canvas.addEventListener("touchend", (e) => {
+    if (gameState !== "PLAYING" || !selectedTile) return;
+
+    // For touchend, we use changedTouches to find where the finger left the screen
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.changedTouches[0];
+    const mouseX = touch.clientX - rect.left;
+    const mouseY = touch.clientY - rect.top;
+
+    const targetTile = getTileAt(mouseX, mouseY, selectedTile);
+
+    if (targetTile) {
+      swapTiles(selectedTile, targetTile, shuffled_tiles_array_res);
+      verifyAdjacency();
+      selectedTile.updateCanvasCords(selectedTile.currentIndex);
+      targetTile.updateCanvasCords(targetTile.currentIndex);
+    } else {
+      selectedTile.updateCanvasCords(originalIndex);
+    }
+
+    selectedTile = null;
+    isDragging = false;
+    originalIndex = null;
+    redrawCanvas(shuffled_tiles_array_res);
+
+    if (verifyWin()) {
+      setTimeout(() => {
+        gameState = "WON";
+        canvas.classList.add("blur");
+        showWinScreen();
+      }, 300);
+    }
+  });
 });
 
 // read up on shallow and deep copy
