@@ -1,0 +1,124 @@
+body {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px 0px;
+  padding: 0px;
+  background: linear-gradient(135deg, #0E3A5D, #1F5663, #4F8896);
+ 
+}
+
+#gamePlay{
+  text-align: center;
+} 
+
+
+#levelTitle{
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+}
+
+
+#myCanvas {
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  max-width: 700px;
+  background: white;
+  padding: 15px;
+  border: 10px solid #f5f5f5;
+  box-shadow: inset 0 0 0 2px #ddd;
+  border-radius: 10px;
+
+}
+
+/* Start Overlay */
+.overlay {
+  position: fixed; /* Use fixed to cover the entire viewport */
+  inset: 0;
+  background: #0C2C55;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 200; /* Higher than canvas, lower than win screen */
+}
+
+/* Win Overlay */
+#winOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8); /* Darken the background more */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300; /* Highest priority */
+}
+
+/* Fix the button ID mismatch */
+#nextLevelBtn {
+  background: #2f80ed;
+  color: white;
+}
+
+#nextLevelBtn:hover {
+  background: #1c60c7;
+}
+
+/* Ensure hidden strictly removes the element from the click flow */
+.hidden {
+  display: none !important;
+}
+
+
+.hidden {
+  display: none;
+}
+
+.winCard {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.winCard h2 {
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.winCard button {
+  display: block;
+  width: 220px;
+  margin: 15px auto;
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+#nextLevelBtn {
+  background: #2f80ed;
+  color: white;
+}
+
+#nextLevelBtn:hover {
+  background: #1c60c7;
+}
+
+#mainMenuBtn {
+  background: #ddd;
+}
+
+#mainMenuBtn:hover {
+  background: #bbb;
+}
